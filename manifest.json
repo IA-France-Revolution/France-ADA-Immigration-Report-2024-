@@ -1,0 +1,179 @@
+{
+  "name": "France ADA Immigration Rapport 2024 - Dashboard Critique",
+  "short_name": "ADA Report 2024",
+  "description": "Dashboard interactif révélant les dysfonctionnements majeurs de la politique d'immigration française basé sur le rapport officiel 2024. Analyse critique des échecs budgétaires et objectifs ratés.",
+  "start_url": "/?utm_source=pwa",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#FF6B35",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": [
+    "government",
+    "politics",
+    "news",
+    "education",
+    "productivity"
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/desktop-1.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "platform": "wide",
+      "label": "Dashboard principal - Vue d'ensemble des dysfonctionnements"
+    },
+    {
+      "src": "/assets/screenshots/mobile-1.webp", 
+      "sizes": "390x844",
+      "type": "image/webp",
+      "platform": "narrow",
+      "label": "Version mobile - Statistiques critiques"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-96x96.png",
+      "sizes": "96x96", 
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dysfonctionnements",
+      "short_name": "Échecs",
+      "description": "Voir les principaux dysfonctionnements révélés",
+      "url": "/#critical",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-critical.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Budget",
+      "short_name": "€2.19B",
+      "description": "Analyse budgétaire détaillée",
+      "url": "/#budget", 
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-budget.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Performance",
+      "short_name": "Indicateurs",
+      "description": "Tableau de bord des échecs",
+      "url": "/#performance",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-performance.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Partager",
+      "short_name": "Diffuser",
+      "description": "Partager l'analyse critique",
+      "url": "/#share",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-share.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://ia-france-revolution.github.io/Afd/",
+      "id": "afd-dashboard"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+ada",
+      "url": "/?action=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "/open-pdf",
+      "accept": {
+        "application/pdf": [".pdf"]
+      }
+    }
+  ]
+}
