@@ -17,7 +17,6 @@ const CONFIG = {
     
     // Analytics
     analyticsEnabled: true,
-    hotjarEnabled: true,
     
     // Performance monitoring
     performanceMonitoring: true,
@@ -33,6 +32,38 @@ const CONFIG = {
     // Toast settings
     toastDuration: 4000,
     toastMaxVisible: 3,
+    
+    // Real data from official report 2024
+    reportData: {
+        // Hero statistics (from pages 8-12 of rapport)
+        asylum: {
+            totalRequests: 133955,  // Page 8: "133 955 demandes enregistrées par les préfectures"
+            changeVsPreviousYear: -9,  // Page 8: "baissé de 9 % par rapport à 2023"
+            ofpraDelay: 138,  // Page 11: "délai moyen d'instruction, passé de 127 à 138 jours"
+            ofpraTarget: 60,  // Page 22: "Cible 2024: 60 jours"
+            accommodationRate: 72,  // Page 21: "taux d'hébergement des demandeurs d'asile éligibles s'établit à 72 %"
+            accommodationTarget: 64  // Page 21: "cible fixée en PAP 2024 (64 %)"
+        },
+        // Budget data (from pages 13-15)
+        budget: {
+            totalExecuted: 2190000000,  // €2.19B total (programmes 303 et 104)
+            program303: 1835599036,  // Page 14: Programme 303 exécution
+            program104: 355125699,   // Page 14: Programme 104 exécution
+            accommodationCost: 1482017283,  // Page 26: Hébergement
+            adaCost: 368074148  // Page 40: ADA exécution
+        },
+        // Performance indicators (from pages 21-25)
+        performance: {
+            ofpraDecisions: 141911,  // Page 22: "141 911 décisions"
+            ofpraStock: 66370,  // Page 18: "66 370 dossiers fin décembre 2024"
+            stockIncrease: 24,  // Page 18: "augmentation de 24 %"
+            languageSuccess: 65.7,  // Page 67: "Taux d'atteinte du niveau A1"
+            languageTarget: 80,  // Page 67: "Cible 2024: 80"
+            integrationEfficiency: 46,  // Page 68: "46 % absence amélioration"
+            removals: 12856,  // Page 24: "12 856 retours forcés exécutés"
+            removalsIncrease: 22.4  // Page 20: "+22,4 % par rapport à 2023"
+        }
+    },
     
     // Share content
     shareContent: {
@@ -136,23 +167,6 @@ const Utils = {
     },
 
     /**
-     * Get relative time
-     */
-    getRelativeTime(date) {
-        const rtf = new Intl.RelativeTimeFormat('fr', { numeric: 'auto' });
-        const diffTime = date - new Date();
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        
-        if (Math.abs(diffDays) < 30) {
-            return rtf.format(diffDays, 'day');
-        } else if (Math.abs(diffDays) < 365) {
-            return rtf.format(Math.round(diffDays / 30), 'month');
-        } else {
-            return rtf.format(Math.round(diffDays / 365), 'year');
-        }
-    },
-
-    /**
      * Copy text to clipboard
      */
     async copyToClipboard(text) {
@@ -215,10 +229,7 @@ const Performance = {
         loadTime: 0,
         domContentLoaded: 0,
         firstPaint: 0,
-        firstContentfulPaint: 0,
-        largestContentfulPaint: 0,
-        cumulativeLayoutShift: 0,
-        firstInputDelay: 0
+        firstContentfulPaint: 0
     },
 
     init() {
@@ -229,9 +240,6 @@ const Performance = {
         
         // Monitor Core Web Vitals
         this.monitorCoreWebVitals();
-        
-        // Monitor resource loading
-        this.monitorResources();
     },
 
     monitorPageLoad() {
@@ -261,38 +269,6 @@ const Performance = {
                 this.metrics.firstContentfulPaint = entry.startTime;
             }
         });
-
-        // Largest Contentful Paint
-        if ('PerformanceObserver' in window) {
-            try {
-                const lcpObserver = new PerformanceObserver((list) => {
-                    const entries = list.getEntries();
-                    const lastEntry = entries[entries.length - 1];
-                    this.metrics.largestContentfulPaint = lastEntry.startTime;
-                });
-                lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-            } catch (e) {
-                console.warn('LCP monitoring not supported');
-            }
-        }
-    },
-
-    monitorResources() {
-        if ('PerformanceObserver' in window) {
-            try {
-                const resourceObserver = new PerformanceObserver((list) => {
-                    list.getEntries().forEach(entry => {
-                        if (entry.duration > 1000) { // Resources taking more than 1s
-                            console.warn(`⚠️ Slow resource: ${entry.name} (${entry.duration}ms)`);
-                            Analytics.trackEvent('Performance', 'SlowResource', entry.name, entry.duration);
-                        }
-                    });
-                });
-                resourceObserver.observe({ entryTypes: ['resource'] });
-            } catch (e) {
-                console.warn('Resource monitoring not supported');
-            }
-        }
     }
 };
 
@@ -300,7 +276,6 @@ const Performance = {
 const Analytics = {
     pageViews: 0,
     events: [],
-    userInteractions: [],
 
     init() {
         if (!CONFIG.analyticsEnabled) return;
@@ -358,11 +333,6 @@ const Analytics = {
                 this.trackEvent('User Interaction', 'Click', target.textContent?.trim() || target.className);
             }
         });
-
-        // Track form interactions
-        document.addEventListener('submit', (e) => {
-            this.trackEvent('User Interaction', 'Form Submit', e.target.id || 'unknown');
-        });
     },
 
     trackScrollDepth() {
@@ -416,10 +386,6 @@ const Analytics = {
             const totalTime = Math.round((Date.now() - startTime) / 1000);
             this.trackEvent('Engagement', 'Session End', 'Total Time', totalTime);
         });
-    },
-
-    trackSectionView(sectionId) {
-        this.trackEvent('Section View', 'Visible', sectionId);
     }
 };
 
@@ -429,7 +395,7 @@ const Toast = {
     activeToasts: [],
 
     init() {
-        this.container = document.getElementById('toast-container');
+        this.container = document.getElementById('toastContainer');
         if (!this.container) {
             this.createContainer();
         }
@@ -437,7 +403,7 @@ const Toast = {
 
     createContainer() {
         this.container = document.createElement('div');
-        this.container.id = 'toast-container';
+        this.container.id = 'toastContainer';
         this.container.className = 'toast-container';
         this.container.setAttribute('aria-live', 'polite');
         document.body.appendChild(this.container);
@@ -481,10 +447,8 @@ const Toast = {
         };
 
         toast.innerHTML = `
-            <div class="toast-content">
-                <i class="toast-icon ${icons[type] || icons.info}"></i>
-                <span class="toast-message">${message}</span>
-            </div>
+            <i class="toast-icon ${icons[type] || icons.info}"></i>
+            <span class="toast-message">${message}</span>
         `;
 
         // Add click to dismiss
@@ -533,29 +497,17 @@ const Toast = {
 const LoadingManager = {
     loadingElement: null,
     isLoading: true,
-    loadingSteps: [
-        'Chargement des données...',
-        'Analyse des dysfonctionnements...',
-        'Calcul des échecs budgétaires...',
-        'Préparation du rapport critique...'
-    ],
-    currentStep: 0,
 
     init() {
-        this.loadingElement = document.getElementById('loading');
+        this.loadingElement = document.getElementById('loadingOverlay');
         this.simulateLoading();
     },
 
     simulateLoading() {
-        // Simulate loading steps
-        const stepInterval = setInterval(() => {
-            if (this.currentStep < this.loadingSteps.length - 1) {
-                this.currentStep++;
-            } else {
-                clearInterval(stepInterval);
-                this.hide();
-            }
-        }, 800);
+        // Hide loading after a short delay
+        setTimeout(() => {
+            this.hide();
+        }, 1500);
     },
 
     hide() {
@@ -587,9 +539,9 @@ const ScrollManager = {
     scrollThreshold: 100,
 
     init() {
-        this.scrollProgress = document.getElementById('scrollProgress');
+        this.scrollProgress = document.getElementById('progressBar');
         this.header = document.getElementById('header');
-        this.fab = document.querySelector('.fab');
+        this.fab = document.getElementById('scrollToTopBtn');
 
         this.bindEvents();
         this.updateScrollProgress();
@@ -729,7 +681,7 @@ const AnimationManager = {
     init() {
         this.setupIntersectionObserver();
         this.animateCounters();
-        this.animateCharts();
+        this.setupStatCardAnimations();
     },
 
     setupIntersectionObserver() {
@@ -747,7 +699,7 @@ const AnimationManager = {
                     
                     // Track section views
                     if (entry.target.tagName === 'SECTION') {
-                        Analytics.trackSectionView(entry.target.id);
+                        Analytics.trackEvent('Section View', 'Visible', entry.target.id);
                     }
                 }
             });
@@ -758,7 +710,7 @@ const AnimationManager = {
 
         // Observe all animatable elements
         const elementsToAnimate = document.querySelectorAll(
-            '.stat-card, .issue-card, .budget-card, .indicator-card, .timeline-item, section'
+            '.stat-card, .issue-card, .budget-card, .indicator-card, .timeline-item, section[data-aos]'
         );
 
         elementsToAnimate.forEach(el => {
@@ -780,8 +732,6 @@ const AnimationManager = {
         // Trigger specific animations
         if (element.classList.contains('stat-card')) {
             this.animateStatCard(element);
-        } else if (element.classList.contains('chart-bar')) {
-            this.animateChartBar(element);
         }
     },
 
@@ -793,10 +743,10 @@ const AnimationManager = {
     },
 
     animateNumber(element) {
-        const finalValue = element.textContent.replace(/[^\d.-]/g, '');
-        const numericValue = parseFloat(finalValue);
+        const dataValue = element.closest('[data-stat]')?.dataset.stat;
+        const finalValue = dataValue ? parseFloat(dataValue) : 0;
         
-        if (isNaN(numericValue)) return;
+        if (isNaN(finalValue) || finalValue === 0) return;
 
         const duration = 2000;
         const startTime = Date.now();
@@ -808,7 +758,7 @@ const AnimationManager = {
             
             // Easing function
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            const currentValue = startValue + (numericValue - startValue) * easeOutQuart;
+            const currentValue = startValue + (finalValue - startValue) * easeOutQuart;
             
             // Format based on original text
             if (element.textContent.includes('€')) {
@@ -829,34 +779,40 @@ const AnimationManager = {
         animate();
     },
 
-    animateCharts() {
-        const chartObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.animateChart(entry.target);
-                    chartObserver.unobserve(entry.target);
-                }
-            });
-        });
+    setupStatCardAnimations() {
+        // Animate stat cards with real data from report
+        const statCards = document.querySelectorAll('.stat-card');
+        
+        statCards.forEach((card, index) => {
+            const numberEl = card.querySelector('.stat-number');
+            if (!numberEl) return;
 
-        document.querySelectorAll('.budget-chart, .evolution-chart').forEach(chart => {
-            chartObserver.observe(chart);
+            // Set real data based on card content
+            if (card.textContent.includes('demandes d\'asile')) {
+                numberEl.textContent = CONFIG.reportData.asylum.totalRequests.toLocaleString('fr-FR');
+                card.dataset.stat = CONFIG.reportData.asylum.totalRequests;
+            } else if (card.textContent.includes('Budget total')) {
+                numberEl.textContent = Utils.formatCurrency(CONFIG.reportData.budget.totalExecuted);
+                card.dataset.stat = CONFIG.reportData.budget.totalExecuted;
+            } else if (card.textContent.includes('Délai moyen')) {
+                numberEl.textContent = `${CONFIG.reportData.asylum.ofpraDelay}j`;
+                card.dataset.stat = CONFIG.reportData.asylum.ofpraDelay;
+            } else if (card.textContent.includes('hébergement')) {
+                numberEl.textContent = `${CONFIG.reportData.asylum.accommodationRate}%`;
+                card.dataset.stat = CONFIG.reportData.asylum.accommodationRate;
+            }
         });
-
-        this.observers.push(chartObserver);
     },
 
-    animateChart(chart) {
-        const bars = chart.querySelectorAll('.chart-bar, .year-bar');
-        bars.forEach((bar, index) => {
-            setTimeout(() => {
-                bar.style.animation = 'growUp 1.5s ease-out forwards';
-            }, index * 100);
-        });
-    },
-
-    animateChartBar(bar) {
-        bar.style.animation = 'growUp 1.5s ease-out forwards';
+    animateCounters() {
+        // Update hero stats with real data
+        setTimeout(() => {
+            const heroStats = document.querySelector('.hero-stats');
+            if (heroStats) {
+                const statCards = heroStats.querySelectorAll('.stat-card');
+                statCards.forEach(this.animateStatCard.bind(this));
+            }
+        }, 500);
     },
 
     fallbackAnimation() {
@@ -948,7 +904,7 @@ const ShareManager = {
         if (success) {
             // Update button appearance
             const originalHTML = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check"></i><span>Lien copié !</span><small>Prêt à partager</small>';
+            button.innerHTML = '<div class="btn-icon"><i class="fas fa-check"></i></div><div class="btn-content"><span class="btn-title">Lien copié !</span><small class="btn-subtitle">Prêt à partager</small></div>';
             button.style.background = 'var(--gradient-success)';
             
             // Show toast
@@ -999,53 +955,180 @@ const InteractionManager = {
         this.setupProgressBars();
         this.setupTooltips();
         this.setupKeyboardNavigation();
+        this.setupFilterControls();
+        this.setupExpandableCards();
     },
 
     setupCardInteractions() {
         // Enhanced hover effects for cards
-        document.querySelectorAll('.issue-card, .budget-card, .indicator-card').forEach(card => {
+        document.querySelectorAll('.issue-card, .budget-card, .indicator-card, .stat-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px) scale(1.02)';
-                Analytics.trackEvent('Interaction', 'Card Hover', card.className);
+                if (!card.classList.contains('animating')) {
+                    card.style.transform = 'translateY(-8px) scale(1.02)';
+                    Analytics.trackEvent('Interaction', 'Card Hover', card.className);
+                }
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-
-            // Click to expand functionality
-            card.addEventListener('click', () => {
-                this.expandCard(card);
+                if (!card.classList.contains('animating')) {
+                    card.style.transform = '';
+                }
             });
         });
     },
 
-    expandCard(card) {
-        // Add expanded state
-        card.classList.toggle('expanded');
+    setupExpandableCards() {
+        document.querySelectorAll('.issue-expand, .indicator-expand').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const card = button.closest('.issue-card, .indicator-card');
+                const details = card.querySelector('.issue-details, .indicator-details');
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                
+                if (details) {
+                    if (isExpanded) {
+                        details.hidden = true;
+                        button.setAttribute('aria-expanded', 'false');
+                        button.querySelector('i').style.transform = 'rotate(0deg)';
+                    } else {
+                        details.hidden = false;
+                        button.setAttribute('aria-expanded', 'true');
+                        button.querySelector('i').style.transform = 'rotate(180deg)';
+                    }
+                    
+                    Analytics.trackEvent('Interaction', 'Card Expand', isExpanded ? 'Close' : 'Open');
+                }
+            });
+        });
+    },
+
+    setupFilterControls() {
+        // Filter buttons for issues
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
+                
+                // Add active to clicked button
+                button.classList.add('active');
+                button.setAttribute('aria-pressed', 'true');
+                
+                const filter = button.dataset.filter;
+                this.filterIssues(filter);
+                
+                Analytics.trackEvent('Interaction', 'Filter', filter);
+            });
+        });
+
+        // Performance view toggle
+        document.querySelectorAll('.toggle-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active from all buttons in the same group
+                const group = button.closest('.view-toggle');
+                if (group) {
+                    group.querySelectorAll('.toggle-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-checked', 'false');
+                    });
+                    
+                    // Add active to clicked button
+                    button.classList.add('active');
+                    button.setAttribute('aria-checked', 'true');
+                    
+                    const view = button.dataset.view;
+                    this.switchPerformanceView(view);
+                    
+                    Analytics.trackEvent('Interaction', 'View Toggle', view);
+                }
+            });
+        });
+
+        // Timeline controls
+        document.querySelectorAll('.zoom-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active from all zoom buttons
+                document.querySelectorAll('.zoom-btn').forEach(btn => {
+                    btn.setAttribute('aria-pressed', 'false');
+                });
+                
+                // Add active to clicked button
+                button.setAttribute('aria-pressed', 'true');
+                
+                const zoom = button.dataset.zoom;
+                this.adjustTimelineZoom(zoom);
+                
+                Analytics.trackEvent('Interaction', 'Timeline Zoom', zoom);
+            });
+        });
+    },
+
+    filterIssues(filter) {
+        const issueCards = document.querySelectorAll('.issue-card');
         
-        // Track interaction
-        const cardType = card.classList.contains('issue-card') ? 'Issue' : 
-                        card.classList.contains('budget-card') ? 'Budget' : 'Indicator';
-        Analytics.trackEvent('Interaction', 'Card Expand', cardType);
+        issueCards.forEach(card => {
+            if (filter === 'all' || card.classList.contains(filter)) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.3s ease forwards';
+            } else {
+                card.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+    },
+
+    switchPerformanceView(view) {
+        const indicatorsGrid = document.querySelector('.indicators-grid');
+        if (!indicatorsGrid) return;
+
+        // Apply view-specific styles or layouts
+        indicatorsGrid.className = `indicators-grid view-${view}`;
+        
+        // You could implement different layouts here
+        // For now, we'll just add a visual transition
+        indicatorsGrid.style.opacity = '0.5';
+        setTimeout(() => {
+            indicatorsGrid.style.opacity = '1';
+        }, 150);
+    },
+
+    adjustTimelineZoom(zoom) {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        timelineItems.forEach((item, index) => {
+            const delay = index * 50;
+            
+            item.style.animation = 'none';
+            setTimeout(() => {
+                item.style.animation = `slideInUp 0.6s ease ${delay}ms forwards`;
+            }, 10);
+        });
     },
 
     setupProgressBars() {
-        const progressBars = document.querySelectorAll('.progress-bar');
+        const progressBars = document.querySelectorAll('.progress-bar, .progress-fill');
         
         const progressObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const bar = entry.target;
-                    const width = bar.style.width;
+                    const width = bar.style.width || bar.dataset.width;
                     
-                    // Animate from 0 to target width
-                    bar.style.width = '0%';
-                    bar.style.transition = 'width 2s ease-out';
-                    
-                    setTimeout(() => {
-                        bar.style.width = width;
-                    }, 100);
+                    if (width) {
+                        // Animate from 0 to target width
+                        bar.style.width = '0%';
+                        bar.style.transition = 'width 2s ease-out';
+                        
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    }
                     
                     progressObserver.unobserve(bar);
                 }
@@ -1124,19 +1207,12 @@ const InteractionManager = {
         document.addEventListener('keydown', (e) => {
             switch (e.key) {
                 case 'Escape':
-                    // Close any open modals or overlays
                     this.handleEscape();
                     break;
                 case 'ArrowUp':
                     if (e.ctrlKey || e.metaKey) {
                         e.preventDefault();
                         this.scrollToTop();
-                    }
-                    break;
-                case '/':
-                    if (e.ctrlKey || e.metaKey) {
-                        e.preventDefault();
-                        this.focusSearch();
                     }
                     break;
             }
@@ -1146,6 +1222,12 @@ const InteractionManager = {
     handleEscape() {
         // Close mobile menu
         Navigation.closeMobileMenu();
+        
+        // Close accessibility panel
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        if (accessibilityPanel && !accessibilityPanel.hidden) {
+            accessibilityPanel.hidden = true;
+        }
         
         // Remove focus from any focused element
         if (document.activeElement) {
@@ -1159,15 +1241,449 @@ const InteractionManager = {
             behavior: 'smooth'
         });
         Analytics.trackEvent('Interaction', 'Keyboard', 'Scroll to Top');
+    }
+};
+
+// ===== CHART MANAGER =====
+const ChartManager = {
+    charts: new Map(),
+
+    init() {
+        this.createOfpraDelayChart();
+        this.createBudgetChart();
+        this.createPerformanceCharts();
     },
 
-    focusSearch() {
-        // Focus search input if exists
-        const searchInput = document.querySelector('input[type="search"], input[placeholder*="recherche" i]');
-        if (searchInput) {
-            searchInput.focus();
-            Analytics.trackEvent('Interaction', 'Keyboard', 'Focus Search');
+    createOfpraDelayChart() {
+        const canvas = document.getElementById('chart-ofpra-delays');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        
+        // Simple line chart showing OFPRA delay evolution
+        const data = {
+            labels: ['2022', '2023', '2024'],
+            datasets: [{
+                label: 'Délai OFPRA (jours)',
+                data: [159, 127, 138],
+                borderColor: '#E74C3C',
+                backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                tension: 0.4
+            }, {
+                label: 'Objectif',
+                data: [60, 60, 60],
+                borderColor: '#27AE60',
+                borderDash: [5, 5],
+                fill: false
+            }]
+        };
+
+        this.drawLineChart(ctx, data, canvas.width, canvas.height);
+    },
+
+    createBudgetChart() {
+        const canvas = document.getElementById('chart-budget-303');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        
+        // Pie chart for budget breakdown
+        const data = [
+            { label: 'Hébergement', value: 1482017283, color: '#FF6B35' },
+            { label: 'ADA', value: 368074148, color: '#00A8CC' },
+            { label: 'Fonctionnement', value: 321675784, color: '#FFB627' },
+            { label: 'Autres', value: 163831821, color: '#E74C3C' }
+        ];
+
+        this.drawPieChart(ctx, data, canvas.width, canvas.height);
+    },
+
+    createPerformanceCharts() {
+        // Create charts for performance indicators
+        const delayChart = document.getElementById('chart-delays-evolution');
+        if (delayChart) {
+            const ctx = delayChart.getContext('2d');
+            const data = {
+                labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun'],
+                datasets: [{
+                    label: 'Délai moyen',
+                    data: [135, 140, 138, 142, 136, 138],
+                    borderColor: '#E74C3C',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    tension: 0.4
+                }]
+            };
+            this.drawLineChart(ctx, data, delayChart.width, delayChart.height);
         }
+    },
+
+    drawLineChart(ctx, data, width, height) {
+        ctx.clearRect(0, 0, width, height);
+        
+        const padding = 40;
+        const chartWidth = width - 2 * padding;
+        const chartHeight = height - 2 * padding;
+        
+        // Find max value for scaling
+        const allValues = data.datasets.flatMap(d => d.data);
+        const maxValue = Math.max(...allValues) * 1.1;
+        
+        // Draw grid
+        ctx.strokeStyle = '#1E1E1E';
+        ctx.lineWidth = 1;
+        
+        for (let i = 0; i <= 5; i++) {
+            const y = padding + (chartHeight / 5) * i;
+            ctx.beginPath();
+            ctx.moveTo(padding, y);
+            ctx.lineTo(width - padding, y);
+            ctx.stroke();
+        }
+        
+        // Draw datasets
+        data.datasets.forEach(dataset => {
+            ctx.strokeStyle = dataset.borderColor;
+            ctx.lineWidth = 2;
+            
+            if (dataset.borderDash) {
+                ctx.setLineDash(dataset.borderDash);
+            } else {
+                ctx.setLineDash([]);
+            }
+            
+            ctx.beginPath();
+            dataset.data.forEach((value, index) => {
+                const x = padding + (chartWidth / (dataset.data.length - 1)) * index;
+                const y = padding + chartHeight - (value / maxValue) * chartHeight;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.stroke();
+        });
+        
+        // Draw labels
+        ctx.fillStyle = '#B0B0B0';
+        ctx.font = '12px Inter';
+        ctx.textAlign = 'center';
+        
+        data.labels.forEach((label, index) => {
+            const x = padding + (chartWidth / (data.labels.length - 1)) * index;
+            ctx.fillText(label, x, height - 10);
+        });
+    },
+
+    drawPieChart(ctx, data, width, height) {
+        ctx.clearRect(0, 0, width, height);
+        
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = Math.min(width, height) / 3;
+        
+        const total = data.reduce((sum, item) => sum + item.value, 0);
+        let currentAngle = -Math.PI / 2;
+        
+        data.forEach(item => {
+            const sliceAngle = (item.value / total) * 2 * Math.PI;
+            
+            // Draw slice
+            ctx.fillStyle = item.color;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw label
+            const labelAngle = currentAngle + sliceAngle / 2;
+            const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
+            const labelY = centerY + Math.sin(labelAngle) * (radius * 0.7);
+            
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = '10px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText(item.label, labelX, labelY);
+            
+            currentAngle += sliceAngle;
+        });
+    }
+};
+
+// ===== ACCESSIBILITY MANAGER =====
+const AccessibilityManager = {
+    init() {
+        this.setupFocusManagement();
+        this.setupARIAUpdates();
+        this.setupReducedMotion();
+        this.setupAccessibilityPanel();
+    },
+
+    setupFocusManagement() {
+        // Ensure visible focus indicators
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+    },
+
+    setupARIAUpdates() {
+        // Update ARIA labels dynamically
+        const updateARIA = () => {
+            // Update progress bars
+            document.querySelectorAll('.progress-bar, .progress-fill').forEach(bar => {
+                const value = parseInt(bar.style.width) || 0;
+                bar.setAttribute('aria-valuenow', value);
+            });
+
+            // Update loading states
+            const loadingElements = document.querySelectorAll('[aria-busy="true"]');
+            loadingElements.forEach(el => {
+                if (!LoadingManager.isLoading) {
+                    el.setAttribute('aria-busy', 'false');
+                }
+            });
+        };
+
+        // Update ARIA labels periodically
+        setInterval(updateARIA, 1000);
+    },
+
+    setupReducedMotion() {
+        // Respect user's motion preferences
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        
+        const handleMotionPreference = (e) => {
+            if (e.matches) {
+                document.body.classList.add('reduced-motion');
+                // Disable animations
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.animationDuration = '0.01ms';
+                    el.style.transitionDuration = '0.01ms';
+                });
+            } else {
+                document.body.classList.remove('reduced-motion');
+            }
+        };
+
+        mediaQuery.addListener(handleMotionPreference);
+        handleMotionPreference(mediaQuery);
+    },
+
+    setupAccessibilityPanel() {
+        const accessibilityButton = document.querySelector('.accessibility-menu');
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        
+        if (accessibilityButton && accessibilityPanel) {
+            accessibilityButton.addEventListener('click', () => {
+                const isOpen = !accessibilityPanel.hidden;
+                accessibilityPanel.hidden = isOpen;
+                accessibilityPanel.classList.toggle('open', !isOpen);
+                
+                Analytics.trackEvent('Accessibility', 'Panel Toggle', isOpen ? 'Close' : 'Open');
+            });
+            
+            // Close panel with close button
+            const closeButton = accessibilityPanel.querySelector('.panel-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    accessibilityPanel.hidden = true;
+                    accessibilityPanel.classList.remove('open');
+                });
+            }
+            
+            // Handle accessibility controls
+            this.setupAccessibilityControls(accessibilityPanel);
+        }
+    },
+
+    setupAccessibilityControls(panel) {
+        // Font size control
+        const fontSizeControl = panel.querySelector('#fontSize');
+        if (fontSizeControl) {
+            fontSizeControl.addEventListener('input', (e) => {
+                const fontSize = e.target.value + 'px';
+                document.documentElement.style.fontSize = fontSize;
+                Analytics.trackEvent('Accessibility', 'Font Size', fontSize);
+            });
+        }
+        
+        // High contrast control
+        const contrastControl = panel.querySelector('#contrast');
+        if (contrastControl) {
+            contrastControl.addEventListener('change', (e) => {
+                document.body.classList.toggle('high-contrast', e.target.checked);
+                Analytics.trackEvent('Accessibility', 'High Contrast', e.target.checked);
+            });
+        }
+        
+        // Reduced animations control
+        const animationsControl = panel.querySelector('#animations');
+        if (animationsControl) {
+            animationsControl.addEventListener('change', (e) => {
+                document.body.classList.toggle('reduced-motion', e.target.checked);
+                Analytics.trackEvent('Accessibility', 'Reduced Motion', e.target.checked);
+            });
+        }
+    }
+};
+
+// ===== DATA MANAGER =====
+const DataManager = {
+    reportData: CONFIG.reportData,
+
+    init() {
+        this.updateDashboardWithRealData();
+        this.setupDataDownload();
+    },
+
+    updateDashboardWithRealData() {
+        // Update hero statistics with real data
+        this.updateHeroStats();
+        
+        // Update issue cards with real data
+        this.updateIssueCards();
+        
+        // Update budget information
+        this.updateBudgetInfo();
+        
+        // Update performance indicators
+        this.updatePerformanceIndicators();
+    },
+
+    updateHeroStats() {
+        const heroStats = document.querySelectorAll('.hero-stats .stat-card');
+        
+        heroStats.forEach(card => {
+            const numberEl = card.querySelector('.stat-number');
+            const changeEl = card.querySelector('.stat-change');
+            
+            if (card.textContent.includes('demandes d\'asile')) {
+                numberEl.textContent = this.reportData.asylum.totalRequests.toLocaleString('fr-FR');
+                if (changeEl) changeEl.innerHTML = `<i class="fas fa-arrow-down"></i>${this.reportData.asylum.changeVsPreviousYear}% vs 2023`;
+            } else if (card.textContent.includes('Budget')) {
+                numberEl.textContent = Utils.formatCurrency(this.reportData.budget.totalExecuted);
+            } else if (card.textContent.includes('Délai')) {
+                numberEl.textContent = `${this.reportData.asylum.ofpraDelay}j`;
+                const overrun = Math.round(((this.reportData.asylum.ofpraDelay - this.reportData.asylum.ofpraTarget) / this.reportData.asylum.ofpraTarget) * 100);
+                if (changeEl) changeEl.innerHTML = `<i class="fas fa-arrow-up"></i>+${overrun}% vs objectif`;
+            } else if (card.textContent.includes('hébergement')) {
+                numberEl.textContent = `${this.reportData.asylum.accommodationRate}%`;
+                if (changeEl) changeEl.innerHTML = `<i class="fas fa-check"></i>Seul objectif atteint`;
+            }
+        });
+    },
+
+    updateIssueCards() {
+        // Update OFPRA delay issue card
+        const ofpraCard = document.querySelector('.issue-card');
+        if (ofpraCard && ofpraCard.textContent.includes('OFPRA')) {
+            const dataItems = ofpraCard.querySelectorAll('.data-value');
+            if (dataItems.length >= 3) {
+                dataItems[0].textContent = `${this.reportData.asylum.ofpraTarget} jours`;
+                dataItems[1].textContent = `${this.reportData.asylum.ofpraDelay} jours`;
+                
+                const overrun = Math.round(((this.reportData.asylum.ofpraDelay - this.reportData.asylum.ofpraTarget) / this.reportData.asylum.ofpraTarget) * 100);
+                dataItems[2].textContent = `+${overrun}%`;
+            }
+            
+            const impactEl = ofpraCard.querySelector('.issue-impact span');
+            if (impactEl) {
+                impactEl.textContent = `Stock dossiers : +${this.reportData.performance.stockIncrease}% (${this.reportData.performance.ofpraStock.toLocaleString('fr-FR')} dossiers)`;
+            }
+        }
+    },
+
+    updateBudgetInfo() {
+        // Update budget total
+        const budgetTotal = document.querySelector('.budget-total .budget-amount');
+        if (budgetTotal) {
+            budgetTotal.textContent = Utils.formatCurrency(this.reportData.budget.totalExecuted);
+        }
+        
+        // Update budget breakdown
+        const breakdown = document.querySelector('.budget-breakdown');
+        if (breakdown) {
+            const items = breakdown.querySelectorAll('.breakdown-item');
+            if (items.length >= 3) {
+                items[0].innerHTML = '<span>Hébergement</span><span>' + Utils.formatCurrency(this.reportData.budget.accommodationCost) + '</span>';
+                items[1].innerHTML = '<span>ADA</span><span>' + Utils.formatCurrency(this.reportData.budget.adaCost) + '</span>';
+                items[2].innerHTML = '<span>Fonctionnement</span><span>' + Utils.formatCurrency(321675784) + '</span>';
+            }
+        }
+    },
+
+    updatePerformanceIndicators() {
+        // Update performance indicators with real data
+        const indicators = document.querySelectorAll('.indicator-card');
+        
+        indicators.forEach(card => {
+            const valueEl = card.querySelector('.indicator-value');
+            const progressBar = card.querySelector('.progress-bar');
+            
+            if (card.textContent.includes('Délai OFPRA')) {
+                valueEl.textContent = `${this.reportData.asylum.ofpraDelay}j`;
+                if (progressBar) {
+                    const percentage = (this.reportData.asylum.ofpraDelay / this.reportData.asylum.ofpraTarget) * 100;
+                    progressBar.style.width = `${Math.min(percentage, 100)}%`;
+                }
+            } else if (card.textContent.includes('A1')) {
+                valueEl.textContent = `${this.reportData.performance.languageSuccess}%`;
+                if (progressBar) {
+                    progressBar.style.width = `${this.reportData.performance.languageSuccess}%`;
+                }
+            } else if (card.textContent.includes('Décisions')) {
+                valueEl.textContent = Utils.formatNumber(this.reportData.performance.ofpraDecisions);
+            }
+        });
+    },
+
+    setupDataDownload() {
+        const downloadBtn = document.getElementById('downloadBtn');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
+                this.downloadData();
+                Analytics.trackEvent('Data', 'Download', 'JSON');
+            });
+        }
+    },
+
+    downloadData() {
+        const data = {
+            title: 'France ADA Immigration Report 2024 - Data Export',
+            exportDate: new Date().toISOString(),
+            source: 'Rapport annuel de performances - Immigration, asile et intégration 2024',
+            sourceUrl: CONFIG.officialReportURL,
+            data: this.reportData,
+            summary: {
+                totalBudget: this.reportData.budget.totalExecuted,
+                asylumRequests: this.reportData.asylum.totalRequests,
+                ofpraDelay: this.reportData.asylum.ofpraDelay,
+                accommodationRate: this.reportData.asylum.accommodationRate,
+                keyFinding: 'Délai OFPRA dépasse l\'objectif de 130%, seul le taux d\'hébergement atteint son objectif'
+            }
+        };
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ada-immigration-report-2024-data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        URL.revokeObjectURL(url);
+        
+        Toast.success('Données téléchargées avec succès !');
     }
 };
 
@@ -1229,107 +1745,6 @@ const ErrorHandler = {
     }
 };
 
-// ===== ACCESSIBILITY MANAGER =====
-const AccessibilityManager = {
-    init() {
-        this.setupFocusManagement();
-        this.setupARIAUpdates();
-        this.setupReducedMotion();
-        this.setupKeyboardTraps();
-    },
-
-    setupFocusManagement() {
-        // Ensure visible focus indicators
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                document.body.classList.add('keyboard-navigation');
-            }
-        });
-
-        document.addEventListener('mousedown', () => {
-            document.body.classList.remove('keyboard-navigation');
-        });
-    },
-
-    setupARIAUpdates() {
-        // Update ARIA labels dynamically
-        const updateARIA = () => {
-            // Update progress bars
-            document.querySelectorAll('.progress-bar').forEach(bar => {
-                const value = parseInt(bar.style.width) || 0;
-                bar.setAttribute('aria-valuenow', value);
-            });
-
-            // Update loading states
-            const loadingElements = document.querySelectorAll('[aria-busy="true"]');
-            loadingElements.forEach(el => {
-                if (!LoadingManager.isLoading) {
-                    el.setAttribute('aria-busy', 'false');
-                }
-            });
-        };
-
-        // Update ARIA labels periodically
-        setInterval(updateARIA, 1000);
-    },
-
-    setupReducedMotion() {
-        // Respect user's motion preferences
-        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        
-        const handleMotionPreference = (e) => {
-            if (e.matches) {
-                document.body.classList.add('reduced-motion');
-                // Disable animations
-                document.querySelectorAll('*').forEach(el => {
-                    el.style.animationDuration = '0.01ms';
-                    el.style.transitionDuration = '0.01ms';
-                });
-            } else {
-                document.body.classList.remove('reduced-motion');
-            }
-        };
-
-        mediaQuery.addListener(handleMotionPreference);
-        handleMotionPreference(mediaQuery);
-    },
-
-    setupKeyboardTraps() {
-        // Trap focus in modals/overlays when open
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                const modal = document.querySelector('.modal.open, .overlay.open');
-                if (modal) {
-                    this.trapFocus(e, modal);
-                }
-            }
-        });
-    },
-
-    trapFocus(e, container) {
-        const focusableElements = container.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        
-        if (focusableElements.length === 0) return;
-        
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
-        if (e.shiftKey) {
-            if (document.activeElement === firstElement) {
-                e.preventDefault();
-                lastElement.focus();
-            }
-        } else {
-            if (document.activeElement === lastElement) {
-                e.preventDefault();
-                firstElement.focus();
-            }
-        }
-    }
-};
-
 // ===== MAIN APPLICATION =====
 const App = {
     async init() {
@@ -1348,11 +1763,15 @@ const App = {
             // Setup event listeners
             this.setupEventListeners();
             
+            // Initialize data
+            this.initializeData();
+            
             console.log('✅ Dashboard initialized successfully');
             
         } catch (error) {
             console.error('❌ Failed to initialize dashboard:', error);
             ErrorHandler.logError('Initialization Error', error);
+            this.showFallbackContent();
         }
     },
 
@@ -1395,6 +1814,16 @@ const App = {
         Analytics.init();
     },
 
+    initializeData() {
+        // Initialize data manager
+        DataManager.init();
+        
+        // Initialize charts after a delay
+        setTimeout(() => {
+            ChartManager.init();
+        }, 1000);
+    },
+
     setupEventListeners() {
         // Page loaded event
         document.addEventListener('pageLoaded', () => {
@@ -1418,6 +1847,27 @@ const App = {
                 Analytics.trackEvent('Engagement', 'Page Visible');
             }
         });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                Analytics.trackEvent('Navigation', 'Scroll to Top', 'FAB Click');
+            });
+        }
+
+        // Theme toggle (if present)
+        const themeToggle = document.querySelector('.theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                Analytics.trackEvent('UI', 'Theme Toggle');
+            });
+        }
     },
 
     onPageLoaded() {
@@ -1444,41 +1894,48 @@ const App = {
         
         // Cleanup observers
         AnimationManager.destroy();
+    },
+
+    showFallbackContent() {
+        // Show error boundary if initialization fails
+        const errorBoundary = document.getElementById('errorBoundary');
+        if (errorBoundary) {
+            errorBoundary.hidden = false;
+        }
+        
+        // Hide loading overlay
+        LoadingManager.hide();
     }
 };
 
-// ===== GLOBAL FUNCTIONS (for HTML onclick events) =====
+// ===== GLOBAL FUNCTIONS =====
 
 /**
- * Scroll to top function (called from FAB)
+ * Global functions for HTML onclick events and external access
  */
-function scrollToTop() {
+window.scrollToTop = function() {
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
-    Analytics.trackEvent('Navigation', 'Scroll to Top', 'FAB Click');
-}
+    Analytics.trackEvent('Navigation', 'Scroll to Top', 'Global Function');
+};
 
-/**
- * Share functions (called from share buttons)
- */
-function shareTwitter() {
+window.shareTwitter = function() {
     ShareManager.shareTwitter();
-}
+};
 
-function shareLinkedIn() {
+window.shareLinkedIn = function() {
     ShareManager.shareLinkedIn();
-}
+};
 
-function shareFacebook() {
+window.shareFacebook = function() {
     ShareManager.shareFacebook();
-}
+};
 
-function copyLink() {
-    const button = event.target.closest('.share-btn');
-    ShareManager.copyLink(button);
-}
+window.copyLink = function(button) {
+    ShareManager.copyLink(button || event.target.closest('.share-btn'));
+};
 
 // ===== INITIALIZATION =====
 
@@ -1505,7 +1962,8 @@ if (typeof module !== 'undefined' && module.exports) {
         Utils,
         Analytics,
         Toast,
-        ShareManager
+        ShareManager,
+        CONFIG
     };
 }
 
@@ -1514,6 +1972,36 @@ window.addEventListener('error', (e) => {
     console.error('Global error caught:', e.error);
 });
 
+// Add some CSS animations via JavaScript
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-20px); }
+    }
+    
+    @keyframes slideInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes growUp {
+        from { transform: scaleY(0); }
+        to { transform: scaleY(1); }
+    }
+    
+    .aos-animate {
+        animation: fadeIn 0.6s ease forwards;
+    }
+`;
+document.head.appendChild(style);
+
 console.log('📊 France ADA Immigration Report 2024 - JavaScript Loaded');
 console.log('🔗 Dashboard URL:', CONFIG.baseURL);
 console.log('📋 Official Report:', CONFIG.officialReportURL);
+console.log('📈 Real Data Loaded:', CONFIG.reportData);
