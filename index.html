@@ -1,3 +1,4 @@
+<!-- ========== File: index.html ========== -->
 <!DOCTYPE html>
 <html lang="fr" prefix="og: https://ogp.me/ns#" class="no-js">
 <head>
@@ -40,7 +41,6 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Dashboard ADA Immigration France 2024 - Dysfonctionnements révélés">
     <meta property="og:locale" content="fr_FR">
-    <meta property="og:locale:alternate" content="en_US">
     <meta property="article:published_time" content="2024-12-19T00:00:00Z">
     <meta property="article:modified_time" content="2024-12-19T00:00:00Z">
     <meta property="article:author" content="AI France Revolution">
@@ -72,282 +72,36 @@
     <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
     <meta name="msapplication-navbutton-color" content="#FF6B35">
     <meta name="msapplication-TileColor" content="#FF6B35">
-    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="msapplication-config" content="./browserconfig.xml">
     <meta name="format-detection" content="telephone=no">
     
     <!-- Enhanced Favicons & Icons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF6B35">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./assets/icons/icon-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#FF6B35">
     
-    <!-- Enhanced Performance Preconnect -->
+    <!-- Performance Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    
-    <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="//static.hotjar.com">
     <link rel="dns-prefetch" href="//www.assemblee-nationale.fr">
     
-    <!-- Enhanced Critical CSS with System Fonts -->
-    <style>
-        :root {
-            --primary: #FF6B35;
-            --secondary: #004E89;
-            --accent: #00A8CC;
-            --warning: #FFB627;
-            --danger: #E74C3C;
-            --success: #27AE60;
-            --dark: #0A0A0A;
-            --dark-card: #121212;
-            --dark-border: #1E1E1E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B0B0B0;
-            --text-muted: #707070;
-            --gradient-primary: linear-gradient(135deg, #FF6B35, #F7931E);
-            --gradient-secondary: linear-gradient(135deg, #004E89, #00A8CC);
-            --gradient-danger: linear-gradient(135deg, #E74C3C, #C0392B);
-            --blur-bg: rgba(18, 18, 18, 0.8);
-            --shadow-elevation-1: 0 2px 4px rgba(0,0,0,0.1);
-            --shadow-elevation-2: 0 4px 8px rgba(0,0,0,0.15);
-            --shadow-elevation-3: 0 8px 16px rgba(0,0,0,0.2);
-            --border-radius-sm: 8px;
-            --border-radius-md: 12px;
-            --border-radius-lg: 16px;
-            --border-radius-xl: 24px;
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-        }
+    <link rel="preload" href="./styles.css" as="style">
+    <link rel="preload" href="./main.js" as="script">
+    <link rel="preload" href="./assets/og-image-ada-report-2024.webp" as="image">
 
-        @media (prefers-color-scheme: light) {
-            :root {
-                --dark: #FFFFFF;
-                --dark-card: #F8F9FA;
-                --dark-border: #E5E7EB;
-                --text-primary: #111827;
-                --text-secondary: #6B7280;
-                --text-muted: #9CA3AF;
-                --blur-bg: rgba(248, 249, 250, 0.8);
-            }
-        }
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px;
-            font-size: 16px;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
-
-        body {
-            font-family: var(--font-system);
-            background: var(--dark);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-            min-height: 100vh;
-            transition: background-color var(--transition-base), color var(--transition-base);
-        }
-
-        .no-js .loading-overlay { display: none; }
-        
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity var(--transition-slow), visibility var(--transition-slow);
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid var(--dark-border);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--gradient-primary);
-            transform-origin: left;
-            transform: scaleX(0);
-            z-index: 1001;
-            transition: transform 0.1s ease;
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--blur-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--dark-border);
-            padding: 1rem 0;
-            z-index: 1000;
-            transition: all var(--transition-base);
-        }
-
-        .header.scrolled {
-            background: rgba(10, 10, 10, 0.95);
-            box-shadow: var(--shadow-elevation-2);
-        }
-
-        .hero {
-            padding: 8rem 0 4rem;
-            text-align: center;
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.3s;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Skip to content for accessibility */
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 6px;
-            background: var(--primary);
-            color: white;
-            padding: 8px;
-            text-decoration: none;
-            border-radius: var(--border-radius-sm);
-            z-index: 10000;
-            transition: top var(--transition-fast);
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 6px;
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            :root {
-                --dark: #000000;
-                --dark-card: #111111;
-                --text-primary: #FFFFFF;
-                --primary: #FF6B35;
-                --danger: #FF0000;
-                --warning: #FFFF00;
-                --success: #00FF00;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            .header,
-            .loading-overlay,
-            .progress-bar {
-                display: none !important;
-            }
-        }
-    </style>
-    
-    <!-- Enhanced Fonts with Performance -->
+    <!-- Critical CSS & Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Enhanced Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
-    
-    <!-- Enhanced Analytics with Privacy -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID', {
-            page_title: 'France ADA Immigration Report 2024',
-            page_location: 'https://ia-france-revolution.github.io/France-ADA-Immigration-Report-2024-/',
-            content_group1: 'Government Analysis',
-            content_group2: 'Immigration Policy',
-            custom_map: {'custom_parameter_1': 'dimension1'},
-            anonymize_ip: true,
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false
-        });
-    </script>
-    
-    <!-- Enhanced Structured Data -->
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -361,7 +115,6 @@
         "operatingSystem": "Any",
         "browserRequirements": "Requires JavaScript. Requires HTML5. Progressive Web App compatible.",
         "dateCreated": "2024-12-19",
-        "dateModified": "2024-12-19",
         "datePublished": "2024-12-19",
         "inLanguage": "fr-FR",
         "isAccessibleForFree": true,
@@ -369,900 +122,332 @@
         "accessibilityControl": ["fullKeyboardControl", "fullMouseControl", "fullTouchControl"],
         "accessibilityHazard": "none",
         "accessibilityAPI": "ARIA",
-        "usageInfo": "https://ia-france-revolution.github.io/France-ADA-Immigration-Report-2024-/",
         "creator": {
             "@type": "Organization",
-            "@id": "https://aifr.ai/#organization",
             "name": "AI France Revolution",
-            "url": "https://aifr.ai",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://aifr.ai/aifr-og.webp",
-                "width": 512,
-                "height": 512
-            },
-            "sameAs": [
-                "https://twitter.com/AIFR_AI",
-                "https://github.com/IA-France-Revolution",
-                "https://www.linkedin.com/company/aifrancerevolution/",
-                "https://www.youtube.com/@AIFranceRevolution",
-                "https://t.me/IAFranceRevolution_bot"
-            ]
-        },
-        "publisher": {
-            "@type": "Organization",
-            "@id": "https://aifr.ai/#organization"
+            "url": "https://aifr.ai"
         },
         "mainEntity": {
             "@type": "Dataset",
             "name": "Rapport Immigration Asile Intégration France 2024",
             "description": "Données officielles du rapport annuel de performances Immigration, Asile et Intégration 2024",
             "url": "https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration",
-            "creator": {
-                "@type": "Organization",
-                "name": "Assemblée Nationale Française"
-            },
-            "dateCreated": "2024",
-            "license": "https://creativecommons.org/licenses/by/4.0/"
+            "creator": { "@type": "Organization", "name": "Assemblée Nationale Française" }
         },
-        "about": [
-            {
-                "@type": "Thing",
-                "name": "Immigration France",
-                "description": "Politique d'immigration française"
-            },
-            {
-                "@type": "Thing", 
-                "name": "ADA - Allocation Demandeurs Asile",
-                "description": "Allocation pour demandeurs d'asile en France"
-            },
-            {
-                "@type": "Thing",
-                "name": "OFPRA",
-                "description": "Office français de protection des réfugiés et apatrides"
-            },
-            {
-                "@type": "Thing",
-                "name": "Budget Public",
-                "description": "Analyse budgétaire des politiques publiques"
-            }
-        ],
         "keywords": "ADA, immigration France, OFPRA, asile, budget public, transparence gouvernementale, rapport parlementaire, dashboard interactif, visualisation données"
     }
     </script>
 
-    <!-- Performance Resource Hints -->
-    <link rel="preload" href="/styles.css" as="style">
-    <link rel="preload" href="/main.js" as="script">
-    <link rel="preload" href="/assets/og-image-ada-report-2024.webp" as="image">
-    
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                    console.log('SW registered: ', registration);
-                }, function(registrationError) {
-                    console.log('SW registration failed: ', registrationError);
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').then(reg => {
+                    console.log('Service Worker: Registered', reg);
+                }).catch(err => {
+                    console.error('Service Worker: Registration Failed', err);
                 });
             });
         }
     </script>
 </head>
 <body>
-    <!-- Skip to content for accessibility -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
     
-    <!-- Enhanced Loading Screen with Accessibility -->
-    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true" role="status" aria-label="Chargement en cours">
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="false" role="status" aria-label="Chargement en cours">
         <div class="loading-spinner" aria-hidden="true"></div>
         <span class="sr-only">Chargement du dashboard en cours...</span>
     </div>
 
-    <!-- Enhanced Progress Bar -->
-    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progression du défilement"></div>
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progression du défilement"></div>
 
-    <!-- Enhanced Header with Accessibility -->
     <header class="header" id="header" role="banner">
         <div class="header-content">
-            <div class="logo" role="img" aria-label="Logo ADA Immigration Rapport 2024">
-                <i class="fas fa-chart-bar" aria-hidden="true"></i>
-                <span>ADA Immigration Rapport 2024</span>
-            </div>
+            <a href="#" class="logo" aria-label="Accueil - ADA Immigration Rapport 2024">
+                <i class="fas fa-chart-line" aria-hidden="true"></i>
+                <span>ADA Report 2024</span>
+            </a>
             <nav class="nav" role="navigation" aria-label="Navigation principale">
-                <ul class="nav-menu" role="menubar">
-                    <li class="nav-item" role="none">
-                        <a href="#overview" role="menuitem" class="nav-link">Vue d'ensemble</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="#critical" role="menuitem" class="nav-link">Dysfonctionnements</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="#budget" role="menuitem" class="nav-link">Budget</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="#performance" role="menuitem" class="nav-link">Performance</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="#timeline" role="menuitem" class="nav-link">Chronologie</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="#share" role="menuitem" class="nav-link">Partager</a>
-                    </li>
+                <ul class="nav-menu" id="nav-menu" role="menubar">
+                    <li role="none"><a href="#overview" role="menuitem" class="nav-link">Vue d'ensemble</a></li>
+                    <li role="none"><a href="#critical" role="menuitem" class="nav-link">Dysfonctionnements</a></li>
+                    <li role="none"><a href="#budget" role="menuitem" class="nav-link">Budget</a></li>
+                    <li role="none"><a href="#performance" role="menuitem" class="nav-link">Performance</a></li>
+                    <li role="none"><a href="#timeline" role="menuitem" class="nav-link">Chronologie</a></li>
+                    <li role="none"><a href="#share" role="menuitem" class="nav-link">Partager</a></li>
                 </ul>
                 <button class="mobile-menu-toggle" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="nav-menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
                 </button>
             </nav>
             <div class="header-actions">
                 <button class="theme-toggle" aria-label="Basculer le thème" title="Changer le thème">
                     <i class="fas fa-moon" aria-hidden="true"></i>
                 </button>
-                <button class="accessibility-menu" aria-label="Options d'accessibilité" title="Paramètres d'accessibilité">
-                    <i class="fas fa-universal-access" aria-hidden="true"></i>
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- Enhanced Main Content -->
     <main class="main-content" id="main-content" role="main">
         <div class="container">
-            <!-- Enhanced Hero Section -->
             <section class="hero" id="overview" role="region" aria-labelledby="hero-title">
                 <div class="hero-background" aria-hidden="true"></div>
-                <h1 id="hero-title">France ADA Immigration Rapport 2024</h1>
-                <p class="hero-subtitle">Dashboard critique interactif révélant les dysfonctionnements majeurs de la politique française d'immigration et d'asile - Analyse impitoyable basée sur le rapport officiel</p>
+                <h1 id="hero-title">Immigration & Asile: Le Rapport qui Accuse</h1>
+                <p class="hero-subtitle">Dashboard critique interactif révélant les dysfonctionnements majeurs de la politique française d'immigration et d'asile. Analyse impitoyable basée sur le rapport officiel 2024.</p>
                 
-                <!-- Enhanced Alert Banner -->
                 <div class="alert-banner" role="alert" aria-live="polite">
                     <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
                     <div class="alert-content">
-                        <strong>ALERTE BUDGÉTAIRE :</strong> 
-                        <span>€2,19 milliards dépensés - Objectifs ratés en série - Système défaillant révélé</span>
+                        <strong>ALERTE DÉMOCRATIQUE :</strong> 
+                        <span>€2,19 milliards dépensés. Objectifs ratés en série. Système défaillant révélé.</span>
                     </div>
                 </div>
                 
-                <!-- Enhanced Hero Stats with Animations -->
                 <div class="hero-stats" role="region" aria-label="Statistiques clés du rapport">
                     <article class="stat-card" data-aos="fade-up" data-stat="133955">
-                        <div class="stat-icon" aria-hidden="true">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-number primary" aria-label="133 955 demandes d'asile">133 955</div>
-                        <div class="stat-label">Demandes d'asile enregistrées</div>
-                        <div class="stat-change negative" aria-label="Baisse de 9% par rapport à 2023">
-                            <i class="fas fa-arrow-down" aria-hidden="true"></i>
-                            -9% vs 2023
-                        </div>
-                        <div class="stat-detail">Enregistrées par les GUDA</div>
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-number primary" aria-label="133 955 demandes d'asile">...</div>
+                        <div class="stat-label">Demandes d'asile</div>
+                        <div class="stat-change negative"><i class="fas fa-arrow-down"></i> -9% vs 2023</div>
+                        <div class="stat-detail">Premières demandes enregistrées</div>
                     </article>
                     
                     <article class="stat-card" data-aos="fade-up" data-aos-delay="100" data-stat="2190000000">
-                        <div class="stat-icon" aria-hidden="true">
-                            <i class="fas fa-euro-sign"></i>
-                        </div>
-                        <div class="stat-number warning" aria-label="2,19 milliards d'euros">€2.19B</div>
+                        <div class="stat-icon"><i class="fas fa-euro-sign"></i></div>
+                        <div class="stat-number warning" aria-label="2,19 milliards d'euros">...</div>
                         <div class="stat-label">Budget total exécuté</div>
-                        <div class="stat-change negative" aria-label="Dérapages budgétaires constants">
-                            <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
-                            Dérapages constants
-                        </div>
-                        <div class="stat-detail">Programmes 303 et 104</div>
+                        <div class="stat-change negative"><i class="fas fa-exclamation-circle"></i> Coûts Ukraine non prévus</div>
+                        <div class="stat-detail">Programmes 303 & 104</div>
                     </article>
                     
                     <article class="stat-card" data-aos="fade-up" data-aos-delay="200" data-stat="138">
-                        <div class="stat-icon" aria-hidden="true">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="stat-number danger" aria-label="138 jours de délai">138j</div>
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-number danger" aria-label="138 jours de délai">...</div>
                         <div class="stat-label">Délai moyen OFPRA</div>
-                        <div class="stat-change negative" aria-label="130% de dépassement de l'objectif">
-                            <i class="fas fa-arrow-up" aria-hidden="true"></i>
-                            +130% vs objectif
-                        </div>
+                        <div class="stat-change negative"><i class="fas fa-arrow-up"></i> +130% vs objectif</div>
                         <div class="stat-detail">Objectif : 60 jours</div>
                     </article>
                     
                     <article class="stat-card" data-aos="fade-up" data-aos-delay="300" data-stat="72">
-                        <div class="stat-icon" aria-hidden="true">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="stat-number success" aria-label="72% de taux d'hébergement">72%</div>
-                        <div class="stat-label">Taux hébergement demandeurs</div>
-                        <div class="stat-change positive" aria-label="Seul objectif atteint">
-                            <i class="fas fa-check" aria-hidden="true"></i>
-                            Seul objectif atteint
-                        </div>
-                        <div class="stat-detail">Objectif : 64%</div>
+                        <div class="stat-icon"><i class="fas fa-home"></i></div>
+                        <div class="stat-number success" aria-label="72% de taux d'hébergement">...</div>
+                        <div class="stat-label">Taux d'hébergement</div>
+                        <div class="stat-change positive"><i class="fas fa-check"></i> Seul objectif majeur atteint</div>
+                        <div class="stat-detail">Cible : 64%</div>
                     </article>
                 </div>
 
-                <!-- Enhanced CTA Buttons -->
                 <div class="hero-cta">
                     <a href="#critical" class="btn btn-primary btn-interactive" role="button">
-                        <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
-                        <span>Voir les Dysfonctionnements</span>
-                        <div class="btn-ripple" aria-hidden="true"></div>
+                        <i class="fas fa-bomb" aria-hidden="true"></i><span>Voir les Échecs</span><div class="btn-ripple" aria-hidden="true"></div>
                     </a>
-                    <a href="https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration" 
-                       class="btn btn-secondary btn-interactive" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       role="button">
-                        <i class="fas fa-file-pdf" aria-hidden="true"></i>
-                        <span>Rapport Officiel</span>
-                        <div class="btn-ripple" aria-hidden="true"></div>
+                    <a href="https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration" class="btn btn-secondary btn-interactive" target="_blank" rel="noopener noreferrer" role="button">
+                        <i class="fas fa-file-pdf" aria-hidden="true"></i><span>Rapport Officiel (PDF)</span><div class="btn-ripple" aria-hidden="true"></div>
                     </a>
-                    <button class="btn btn-outline btn-interactive" id="downloadBtn" role="button" aria-label="Télécharger les données">
-                        <i class="fas fa-download" aria-hidden="true"></i>
-                        <span>Télécharger Données</span>
-                        <div class="btn-ripple" aria-hidden="true"></div>
+                    <button class="btn btn-outline btn-interactive" id="downloadBtn" role="button" aria-label="Télécharger les données brutes en JSON">
+                        <i class="fas fa-download" aria-hidden="true"></i><span>Télécharger les Données</span><div class="btn-ripple" aria-hidden="true"></div>
                     </button>
                 </div>
             </section>
 
-            <!-- Enhanced Critical Issues Section -->
             <section class="critical-issues" id="critical" role="region" aria-labelledby="critical-title">
                 <div class="section-background" aria-hidden="true"></div>
                 <h2 id="critical-title" class="section-title">🚨 Dysfonctionnements Majeurs Exposés</h2>
-                <p class="section-subtitle">Les échecs cuisants de la politique d'immigration française révélés par les chiffres officiels du rapport parlementaire 2024</p>
+                <p class="section-subtitle">Les échecs cuisants de la politique d'immigration française, révélés par les chiffres officiels du rapport 2024.</p>
                 
-                <!-- Enhanced Filter Controls -->
                 <div class="filter-controls" role="region" aria-label="Filtres des dysfonctionnements">
                     <button class="filter-btn active" data-filter="all" aria-pressed="true">Tous</button>
-                    <button class="filter-btn" data-filter="critical" aria-pressed="false">Critiques</button>
-                    <button class="filter-btn" data-filter="warning" aria-pressed="false">Avertissements</button>
-                    <button class="filter-btn" data-filter="budget" aria-pressed="false">Budgétaires</button>
+                    <button class="filter-btn" data-filter="inefficiency" aria-pressed="false">Inefficacité</button>
+                    <button class="filter-btn" data-filter-budget="budget" aria-pressed="false">Budgétaire</button>
+                    <button class="filter-btn" data-filter-integration="integration" aria-pressed="false">Intégration</button>
                 </div>
                 
                 <div class="issues-grid" role="list" aria-label="Liste des dysfonctionnements">
-                    <!-- Enhanced Issue Cards with Interactivity -->
-                    <article class="issue-card critical" 
-                             data-category="critical" 
-                             data-aos="fade-up" 
-                             role="listitem"
-                             tabindex="0"
-                             aria-labelledby="issue-1-title"
-                             aria-describedby="issue-1-desc">
+                    <article class="issue-card critical" data-category="inefficiency" data-aos="fade-up" role="listitem" tabindex="0" aria-labelledby="issue-1-title" aria-describedby="issue-1-desc">
                         <div class="issue-header">
-                            <div class="issue-icon" aria-hidden="true">
-                                <i class="fas fa-hourglass-end"></i>
-                            </div>
+                            <div class="issue-icon"><i class="fas fa-hourglass-end"></i></div>
                             <div class="issue-title-group">
-                                <h3 id="issue-1-title" class="issue-title">OFPRA : Délais Explosés</h3>
-                                <div class="issue-severity critical" aria-label="Niveau critique">Critique</div>
+                                <h3 id="issue-1-title" class="issue-title">OFPRA : Délais de Traitement Catastrophiques</h3>
+                                <div class="issue-severity critical">Critique</div>
                             </div>
-                            <button class="issue-expand" aria-label="Développer les détails" aria-expanded="false">
-                                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                            </button>
+                            <button class="issue-expand" aria-label="Développer les détails sur les délais OFPRA" aria-expanded="false"><i class="fas fa-chevron-down"></i></button>
                         </div>
-                        
-                        <div id="issue-1-desc" class="issue-description">
-                            <strong>ÉCHEC CUISANT :</strong> Le délai moyen de traitement OFPRA a augmenté de 127 à 138 jours, 
-                            dépassant l'objectif de 60 jours de <strong>+130%</strong>. Stock de dossiers en explosion.
-                        </div>
-                        
+                        <div id="issue-1-desc" class="issue-description"><strong>ÉCHEC TOTAL :</strong> Le délai moyen de traitement d'un dossier par l'OFPRA a explosé à <strong>138 jours</strong>, un dépassement de <strong>+130%</strong> par rapport à l'objectif de 60 jours. Le stock de dossiers en attente a augmenté de <strong>24%</strong>.</div>
                         <div class="issue-data" role="table" aria-label="Données comparatives OFPRA">
-                            <div class="data-item" role="cell">
-                                <div class="data-label">Objectif 2024</div>
-                                <div class="data-value">60 jours</div>
-                            </div>
-                            <div class="data-item" role="cell">
-                                <div class="data-label">Réalité</div>
-                                <div class="data-value danger">138 jours</div>
-                            </div>
-                            <div class="data-item" role="cell">
-                                <div class="data-label">Échec</div>
-                                <div class="data-value danger">+130%</div>
-                            </div>
-                        </div>
-                        
-                        <div class="issue-details" hidden>
-                            <div class="issue-chart" aria-label="Évolution des délais OFPRA">
-                                <canvas id="chart-ofpra-delays" width="400" height="200"></canvas>
-                            </div>
-                            <div class="issue-impact">
-                                <i class="fas fa-chart-line" aria-hidden="true"></i>
-                                <span>Stock dossiers : +24% (66 370 dossiers)</span>
-                            </div>
-                            <div class="issue-actions">
-                                <button class="btn btn-sm btn-primary" aria-label="Voir plus de détails sur les délais OFPRA">
-                                    Plus de détails
-                                </button>
-                                <button class="btn btn-sm btn-outline" aria-label="Partager cette information">
-                                    Partager
-                                </button>
-                            </div>
+                            <div role="cell"><div class="data-label">Objectif 2024</div><div class="data-value">60 jours</div></div>
+                            <div role="cell"><div class="data-label">Réalité</div><div class="data-value danger">138 jours</div></div>
+                            <div role="cell"><div class="data-label">Échec</div><div class="data-value danger">+130%</div></div>
                         </div>
                     </article>
-
-                    <!-- Additional enhanced issue cards would follow the same pattern -->
-                    <!-- ... (continuing with similar enhancements for other cards) ... -->
+                     <article class="issue-card critical" data-category="integration" data-aos="fade-up" role="listitem" tabindex="0" aria-labelledby="issue-2-title" aria-describedby="issue-2-desc">
+                        <div class="issue-header">
+                            <div class="issue-icon"><i class="fas fa-language"></i></div>
+                            <div class="issue-title-group">
+                                <h3 id="issue-2-title" class="issue-title">Intégration Linguistique : La Promesse Brisée</h3>
+                                <div class="issue-severity critical">Critique</div>
+                            </div>
+                            <button class="issue-expand" aria-label="Développer les détails sur l'intégration linguistique" aria-expanded="false"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div id="issue-2-desc" class="issue-description"><strong>FIASCO :</strong> Le taux d'atteinte du niveau de français A1, pilier de l'intégration, s'effondre à <strong>65,7%</strong>, loin de l'objectif de <strong>80%</strong>. Une barrière majeure à l'autonomie et à l'emploi.</div>
+                        <div class="issue-data" role="table" aria-label="Données comparatives intégration linguistique">
+                            <div role="cell"><div class="data-label">Objectif 2024</div><div class="data-value">80%</div></div>
+                            <div role="cell"><div class="data-label">Réalité</div><div class="data-value danger">65,7%</div></div>
+                            <div role="cell"><div class="data-label">Écart</div><div class="data-value danger">-14,3 pts</div></div>
+                        </div>
+                    </article>
+                    <article class="issue-card critical" data-category="integration" data-aos="fade-up" role="listitem" tabindex="0" aria-labelledby="issue-3-title" aria-describedby="issue-3-desc">
+                        <div class="issue-header">
+                            <div class="issue-icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="issue-title-group">
+                                <h3 id="issue-3-title" class="issue-title">Accès à l'Emploi : Un Leurre ?</h3>
+                                <div class="issue-severity critical">Critique</div>
+                            </div>
+                            <button class="issue-expand" aria-label="Développer les détails sur l'accès à l'emploi" aria-expanded="false"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div id="issue-3-desc" class="issue-description"><strong>DÉSASTRE :</strong> Moins de la moitié (<strong>46%</strong>) des personnes orientées vers le service public de l'emploi s'y sont inscrites, contre un objectif irréaliste de <strong>75%</strong>. La passerelle vers le travail est rompue.</div>
+                         <div class="issue-data" role="table" aria-label="Données comparatives accès à l'emploi">
+                            <div role="cell"><div class="data-label">Objectif 2024</div><div class="data-value">75%</div></div>
+                            <div role="cell"><div class="data-label">Réalité</div><div class="data-value danger">46%</div></div>
+                            <div role="cell"><div class="data-label">Écart</div><div class="data-value danger">-29 pts</div></div>
+                        </div>
+                    </article>
+                     <article class="issue-card warning" data-category="budget" data-aos="fade-up" role="listitem" tabindex="0" aria-labelledby="issue-4-title" aria-describedby="issue-4-desc">
+                        <div class="issue-header">
+                            <div class="issue-icon" style="background: var(--gradient-warning);"><i class="fas fa-file-invoice-dollar"></i></div>
+                            <div class="issue-title-group">
+                                <h3 id="issue-4-title" class="issue-title" style="color:var(--warning);">Coûts Ukraine : L'Improvisation Budgétaire</h3>
+                                <div class="issue-severity warning">Avertissement</div>
+                            </div>
+                            <button class="issue-expand" aria-label="Développer les détails sur les coûts Ukraine" aria-expanded="false"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div id="issue-4-desc" class="issue-description"><strong>MANQUE DE TRANSPARENCE :</strong> **230,6 millions d'euros** de dépenses pour l'accueil des Ukrainiens n'ont pas été budgétés dans la loi de finances initiale. Une gestion "à la petite semaine" qui masque les coûts réels et empêche tout contrôle parlementaire efficace.</div>
+                         <div class="issue-data" role="table" aria-label="Données coûts Ukraine">
+                            <div role="cell"><div class="data-label">Budget LFI 2024</div><div class="data-value">€0</div></div>
+                            <div role="cell"><div class="data-label">Dépense Réelle</div><div class="data-value warning">€230,6M</div></div>
+                            <div role="cell"><div class="data-label">Source</div><div class="data-value">Rattrapage</div></div>
+                        </div>
+                    </article>
+                    <article class="issue-card warning" data-category="inefficiency" data-aos="fade-up" role="listitem" tabindex="0" aria-labelledby="issue-5-title" aria-describedby="issue-5-desc">
+                        <div class="issue-header">
+                            <div class="issue-icon" style="background: var(--gradient-warning);"><i class="fas fa-balance-scale-right"></i></div>
+                            <div class="issue-title-group">
+                                <h3 id="issue-5-title" class="issue-title" style="color:var(--warning);">Chiffres d'Éloignement Contradictoires</h3>
+                                <div class="issue-severity warning">Avertissement</div>
+                            </div>
+                            <button class="issue-expand" aria-label="Développer les détails sur les chiffres d'éloignement" aria-expanded="false"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div id="issue-5-desc" class="issue-description"><strong>INCOHÉRENCE :</strong> Le rapport présente deux chiffres différents pour les "retours forcés" en 2024 : <strong>12 856</strong> dans le tableau des indicateurs et <strong>21 601</strong> dans le texte d'analyse. Un manque de rigueur qui remet en question la fiabilité des données fournies au Parlement.</div>
+                        <div class="issue-data" role="table" aria-label="Données contradictoires éloignement">
+                           <div role="cell"><div class="data-label">Indicateur 3.1</div><div class="data-value warning">12 856</div></div>
+                           <div role="cell"><div class="data-label">Texte (p.24)</div><div class="data-value warning">21 601</div></div>
+                           <div role="cell"><div class="data-label">Différence</div><div class="data-value danger">+68%</div></div>
+                       </div>
+                    </article>
                 </div>
 
-                <!-- Enhanced Insights Box -->
                 <div class="insights-box" data-aos="fade-up" role="complementary" aria-labelledby="insights-title">
-                    <h3 id="insights-title">
-                        <i class="fas fa-lightbulb" aria-hidden="true"></i>
-                        Analyse Critique Approfondie
-                    </h3>
+                    <h3 id="insights-title"><i class="fas fa-lightbulb" aria-hidden="true"></i>Analyse Critique Approfondie</h3>
                     <div class="insights-grid" role="list">
-                        <div class="insight-item" role="listitem">
-                            <strong>Budget :</strong> €2,19B exécutés avec des dérapages constants et des coûts cachés non budgétés
-                        </div>
-                        <div class="insight-item" role="listitem">
-                            <strong>Performance :</strong> Aucun objectif majeur atteint, système saturé avec des délais records
-                        </div>
-                        <div class="insight-item" role="listitem">
-                            <strong>Transparence :</strong> Coûts Ukraine non budgétés révèlent un manque flagrant de prévision
-                        </div>
-                        <div class="insight-item" role="listitem">
-                            <strong>Efficacité :</strong> Délais records, objectifs systématiquement ratés, intégration défaillante
-                        </div>
+                        <div class="insight-item" role="listitem"><strong>Budget :</strong> €2,19B exécutés avec des dérapages constants et des coûts majeurs dissimulés hors budget initial.</div>
+                        <div class="insight-item" role="listitem"><strong>Performance :</strong> Un seul objectif majeur atteint sur cinq, révélant une saturation complète du système et une incapacité à tenir les engagements.</div>
+                        <div class="insight-item" role="listitem"><strong>Transparence :</strong> Les coûts liés à l'Ukraine, non budgétés, révèlent un manque flagrant de prévision et une information parlementaire tronquée.</div>
+                        <div class="insight-item" role="listitem"><strong>Efficacité :</strong> Des délais records, des objectifs systématiquement ratés, une intégration défaillante. La politique affichée est un échec sur le terrain.</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Enhanced Budget Analysis Section -->
             <section class="budget-analysis" id="budget" role="region" aria-labelledby="budget-title">
                 <h2 id="budget-title" class="section-title">💰 Analyse Budgétaire Explosive</h2>
-                <p class="section-subtitle">€2,19 milliards de dépenses publiques sous la loupe - Dérapages et gaspillages révélés par l'analyse des données officielles</p>
-                
-                <!-- Enhanced Budget Overview with Interactive Elements -->
+                <p class="section-subtitle">€2,19 milliards de dépenses publiques sous la loupe. Où va l'argent des contribuables ? Dérapages et gaspillages révélés.</p>
                 <div class="budget-overview" data-aos="fade-up">
-                    <div class="budget-total interactive-card" tabindex="0" role="button" aria-label="Budget total exécuté">
-                        <div class="budget-amount" data-value="2190000000">€2.19B</div>
-                        <div class="budget-label">Budget Total Exécuté</div>
-                        <div class="budget-change">+4,7% vs prévisions initiales</div>
-                        <div class="budget-progress" role="progressbar" aria-valuenow="104.7" aria-valuemin="0" aria-valuemax="120">
-                            <div class="progress-fill" style="width: 87.25%"></div>
-                        </div>
+                    <div class="budget-total interactive-card" tabindex="0" role="button" aria-label="Budget total exécuté : 2,19 milliards d'euros">
+                        <div class="budget-amount" data-value="2190724735">€2.19B</div>
+                        <div class="budget-label">Budget Total Exécuté 2024</div>
+                        <div class="budget-progress" role="progressbar" aria-valuenow="96.5" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" style="width: 96.5%;"></div></div>
+                        <div class="budget-change">96.5% du budget total ouvert</div>
                     </div>
                 </div>
 
-                <!-- Enhanced Budget Cards with Data Visualization -->
                 <div class="budget-cards">
-                    <article class="budget-card interactive-card" 
-                             data-aos="fade-up" 
-                             tabindex="0" 
-                             role="article"
-                             aria-labelledby="budget-card-1-title">
+                    <article class="budget-card interactive-card" data-aos="fade-up" tabindex="0" role="article" aria-labelledby="budget-card-1-title">
                         <div class="budget-header">
                             <div class="budget-info">
-                                <h3 id="budget-card-1-title" class="budget-title">Programme 303 - Immigration & Asile</h3>
-                                <div class="budget-subtitle">Cœur des dépenses d'accueil</div>
+                                <h3 id="budget-card-1-title" class="budget-title">P.303 : Immigration & Asile</h3>
+                                <div class="budget-subtitle">Le cœur des dépenses</div>
                             </div>
-                            <div class="budget-amount" data-value="1840000000">€1.84B</div>
+                            <div class="budget-amount" data-value="1835599036">€1.84B</div>
                         </div>
-                        
-                        <div class="budget-chart interactive-chart" role="img" aria-label="Répartition budgétaire programme 303">
-                            <canvas id="chart-budget-303" width="400" height="200"></canvas>
-                        </div>
-                        
-                        <div class="budget-breakdown" role="table" aria-label="Détail des dépenses programme 303">
-                            <div class="breakdown-item" role="row">
-                                <span role="cell">Hébergement</span>
-                                <span role="cell">€1.48B</span>
-                            </div>
-                            <div class="breakdown-item" role="row">
-                                <span role="cell">ADA</span>
-                                <span role="cell">€368M</span>
-                            </div>
-                            <div class="breakdown-item" role="row">
-                                <span role="cell">Fonctionnement</span>
-                                <span role="cell">€322M</span>
-                            </div>
-                        </div>
-                        
-                        <div class="budget-alert" role="alert">
-                            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-                            <span>Dépassement constant des prévisions</span>
+                        <div class="budget-chart interactive-chart" role="img" aria-label="Répartition budgétaire du programme 303"><canvas id="chart-budget-303" width="400" height="200"></canvas></div>
+                        <div class="budget-breakdown" role="table" aria-label="Détail des dépenses du programme 303">
+                            <div role="row"><span role="cell">Hébergement (Intervention)</span><span role="cell">€1.48B</span></div>
+                            <div role="row"><span role="cell">Allocation Demandeurs Asile (ADA)</span><span role="cell">€368M</span></div>
+                            <div role="row"><span role="cell">Lutte Immigration Irrégulière</span><span role="cell">€166M</span></div>
                         </div>
                     </article>
-
-                    <!-- Additional budget cards would follow similar enhancement patterns -->
-                </div>
-            </section>
-
-            <!-- Enhanced Performance Dashboard -->
-            <section class="performance" id="performance" role="region" aria-labelledby="performance-title">
-                <h2 id="performance-title" class="section-title">📊 Tableau de Bord des Échecs</h2>
-                <p class="section-subtitle">Indicateurs de performance révélant l'inefficacité systémique avec visualisations interactives</p>
-                
-                <!-- Enhanced Performance Controls -->
-                <div class="performance-controls" role="region" aria-label="Contrôles du tableau de bord">
-                    <div class="view-toggle" role="radiogroup" aria-label="Type d'affichage">
-                        <button class="toggle-btn active" role="radio" aria-checked="true" data-view="grid">
-                            <i class="fas fa-th" aria-hidden="true"></i>
-                            Grille
-                        </button>
-                        <button class="toggle-btn" role="radio" aria-checked="false" data-view="chart">
-                            <i class="fas fa-chart-bar" aria-hidden="true"></i>
-                            Graphique
-                        </button>
-                        <button class="toggle-btn" role="radio" aria-checked="false" data-view="table">
-                            <i class="fas fa-table" aria-hidden="true"></i>
-                            Tableau
-                        </button>
-                    </div>
-                    
-                    <div class="comparison-toggle">
-                        <input type="checkbox" id="showComparison" class="sr-only">
-                        <label for="showComparison" class="toggle-label">
-                            <span class="toggle-slider"></span>
-                            Comparaison 2023
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Enhanced Indicators Grid -->
-                <div class="indicators-grid" role="list" aria-label="Indicateurs de performance">
-                    <!-- Enhanced performance indicators with interactive features -->
-                    <div class="indicator-card critical interactive-card" 
-                         data-aos="zoom-in" 
-                         tabindex="0" 
-                         role="listitem"
-                         aria-labelledby="indicator-1-title"
-                         aria-describedby="indicator-1-desc">
-                        <div class="indicator-icon" aria-hidden="true">
-                            <i class="fas fa-hourglass-end"></i>
+                    <article class="budget-card interactive-card" data-aos="fade-up" data-aos-delay="100" tabindex="0" role="article" aria-labelledby="budget-card-2-title">
+                        <div class="budget-header">
+                            <div class="budget-info">
+                                <h3 id="budget-card-2-title" class="budget-title">P.104 : Intégration & Nationalité</h3>
+                                <div class="budget-subtitle">Les "résultats" de l'intégration</div>
+                            </div>
+                            <div class="budget-amount" data-value="355125699">€355M</div>
                         </div>
-                        
-                        <div class="indicator-header">
-                            <div id="indicator-1-title" class="indicator-value danger" data-value="138">138j</div>
-                            <div class="indicator-trend negative" aria-label="Tendance négative">
-                                <i class="fas fa-arrow-up" aria-hidden="true"></i>
-                                <span class="sr-only">En augmentation</span>
-                            </div>
-                        </div>
-                        
-                        <div class="indicator-label">Délai OFPRA</div>
-                        <div class="indicator-target">Objectif : 60j</div>
-                        
-                        <div class="indicator-status status-danger" role="status" aria-live="polite">
-                            <i class="fas fa-times" aria-hidden="true"></i>
-                            <span>Échec Total (+130%)</span>
-                        </div>
-                        
-                        <div class="indicator-progress" role="progressbar" aria-valuenow="230" aria-valuemin="0" aria-valuemax="100" aria-label="138 jours sur objectif de 60 jours">
-                            <div class="progress-bar danger" style="width: 130%;" aria-hidden="true"></div>
-                            <div class="progress-overflow" aria-hidden="true"></div>
-                        </div>
-                        
-                        <div id="indicator-1-desc" class="indicator-details" hidden>
-                            <div class="detail-chart">
-                                <canvas id="chart-delays-evolution" width="300" height="150"></canvas>
-                            </div>
-                            <div class="detail-stats">
-                                <div class="stat">
-                                    <span>2023:</span>
-                                    <span>127j</span>
-                                </div>
-                                <div class="stat">
-                                    <span>Variation:</span>
-                                    <span class="negative">+11j</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="indicator-expand" aria-label="Voir plus de détails" aria-expanded="false">
-                            <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </button>
-                    </div>
-
-                    <!-- Additional enhanced indicators would follow similar patterns -->
-                </div>
-            </section>
-
-            <!-- Enhanced Timeline Section -->
-            <section class="timeline-section" id="timeline" role="region" aria-labelledby="timeline-title">
-                <h2 id="timeline-title" class="section-title">📅 Chronologie Interactive des Scandales 2024</h2>
-                <p class="section-subtitle">Navigation temporelle des événements marquants d'une année de dysfonctionnements</p>
-                
-                <!-- Enhanced Timeline Controls -->
-                <div class="timeline-controls" role="region" aria-label="Contrôles de la chronologie">
-                    <div class="timeline-zoom">
-                        <button class="zoom-btn" data-zoom="year" aria-pressed="true">Année</button>
-                        <button class="zoom-btn" data-zoom="quarter" aria-pressed="false">Trimestre</button>
-                        <button class="zoom-btn" data-zoom="month" aria-pressed="false">Mois</button>
-                    </div>
-                    
-                    <div class="timeline-filter">
-                        <select id="timelineFilter" aria-label="Filtrer les événements par type">
-                            <option value="all">Tous les événements</option>
-                            <option value="budget">Budgétaires</option>
-                            <option value="legal">Juridiques</option>
-                            <option value="operational">Opérationnels</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Enhanced Timeline Container -->
-                <div class="timeline-container" role="region" aria-label="Chronologie des événements">
-                    <div class="timeline-line" aria-hidden="true"></div>
-                    <div class="timeline-progress" aria-hidden="true"></div>
-                    
-                    <!-- Enhanced Timeline Items -->
-                    <article class="timeline-item left" 
-                             data-date="2024-01" 
-                             data-category="legal"
-                             data-aos="slide-right" 
-                             role="article"
-                             tabindex="0"
-                             aria-labelledby="timeline-1-title">
-                        <div class="timeline-date" role="time" datetime="2024-01">
-                            <span class="date-month">Janvier</span>
-                            <span class="date-year">2024</span>
-                        </div>
-                        
-                        <div class="timeline-content">
-                            <div class="timeline-icon danger" aria-hidden="true">
-                                <i class="fas fa-gavel"></i>
-                            </div>
-                            
-                            <h3 id="timeline-1-title" class="timeline-title">Loi CIAI : Nouvelles Contraintes</h3>
-                            
-                            <div class="timeline-description">
-                                Adoption de la loi "Contrôler l'immigration, améliorer l'intégration" imposant 
-                                de nouvelles obligations linguistiques sans moyens supplémentaires.
-                            </div>
-                            
-                            <div class="timeline-impact">
-                                <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-                                <span>Impact : Complexification des procédures</span>
-                            </div>
-                            
-                            <div class="timeline-actions">
-                                <button class="btn btn-sm btn-primary" aria-label="Plus de détails sur la loi CIAI">
-                                    Détails
-                                </button>
-                                <button class="btn btn-sm btn-outline" aria-label="Partager cet événement">
-                                    Partager
-                                </button>
-                            </div>
+                         <div class="budget-chart interactive-chart" role="img" aria-label="Répartition budgétaire du programme 104"><canvas id="chart-budget-104" width="400" height="200"></canvas></div>
+                        <div class="budget-breakdown" role="table" aria-label="Détail des dépenses du programme 104">
+                            <div role="row"><span role="cell">Accueil Primo-Arrivants (OFII)</span><span role="cell">€240M</span></div>
+                            <div role="row"><span role="cell">Actions d'Intégration</span><span role="cell">€113M</span></div>
+                            <div role="row"><span role="cell">Accès à la Nationalité</span><span role="cell">€1.1M</span></div>
                         </div>
                     </article>
-
-                    <!-- Additional timeline items would follow similar enhancement patterns -->
                 </div>
             </section>
 
-            <!-- Enhanced Share Section -->
-            <section class="share-section" id="share" role="region" aria-labelledby="share-title">
-                <div class="share-content" data-aos="fade-up">
-                    <h2 id="share-title" class="share-title">🚀 Diffusez cette Analyse Critique</h2>
-                    <p class="share-subtitle">
-                        Aidez à informer les citoyens sur les dysfonctionnements de la politique d'immigration française. 
-                        <strong>Les données parlent, partagez la vérité !</strong>
-                    </p>
-                    
-                    <!-- Enhanced Share Stats -->
-                    <div class="share-stats" role="region" aria-label="Statistiques de partage">
-                        <div class="share-stat" data-aos="fade-up">
-                            <span class="stat-number">€2.19B</span>
-                            <span class="stat-label">Dépensés</span>
-                        </div>
-                        <div class="share-stat" data-aos="fade-up" data-aos-delay="100">
-                            <span class="stat-number">67%</span>
-                            <span class="stat-label">Échec Global</span>
-                        </div>
-                        <div class="share-stat" data-aos="fade-up" data-aos-delay="200">
-                            <span class="stat-number">+130%</span>
-                            <span class="stat-label">Délai Dépassé</span>
-                        </div>
-                    </div>
-
-                    <!-- Enhanced Share Buttons -->
-                    <div class="share-buttons" role="region" aria-label="Boutons de partage">
-                        <button class="share-btn share-twitter" 
-                                data-platform="twitter" 
-                                aria-label="Partager sur Twitter">
-                            <div class="btn-icon">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                            </div>
-                            <div class="btn-content">
-                                <span class="btn-title">Tweeter l'analyse</span>
-                                <small class="btn-subtitle">Idéal pour l'info rapide</small>
-                            </div>
-                            <div class="btn-ripple" aria-hidden="true"></div>
-                        </button>
-                        
-                        <button class="share-btn share-linkedin" 
-                                data-platform="linkedin" 
-                                aria-label="Partager sur LinkedIn">
-                            <div class="btn-icon">
-                                <i class="fab fa-linkedin" aria-hidden="true"></i>
-                            </div>
-                            <div class="btn-content">
-                                <span class="btn-title">Partager sur LinkedIn</span>
-                                <small class="btn-subtitle">Diffusion professionnelle</small>
-                            </div>
-                            <div class="btn-ripple" aria-hidden="true"></div>
-                        </button>
-                        
-                        <button class="share-btn share-facebook" 
-                                data-platform="facebook" 
-                                aria-label="Publier sur Facebook">
-                            <div class="btn-icon">
-                                <i class="fab fa-facebook" aria-hidden="true"></i>
-                            </div>
-                            <div class="btn-content">
-                                <span class="btn-title">Publier sur Facebook</span>
-                                <small class="btn-subtitle">Portée grand public</small>
-                            </div>
-                            <div class="btn-ripple" aria-hidden="true"></div>
-                        </button>
-                        
-                        <button class="share-btn share-copy" 
-                                data-platform="copy" 
-                                aria-label="Copier le lien">
-                            <div class="btn-icon">
-                                <i class="fas fa-link" aria-hidden="true"></i>
-                            </div>
-                            <div class="btn-content">
-                                <span class="btn-title">Copier le lien</span>
-                                <small class="btn-subtitle">Partage direct</small>
-                            </div>
-                            <div class="btn-ripple" aria-hidden="true"></div>
-                        </button>
-                    </div>
-
-                    <!-- Enhanced Hashtags -->
-                    <div class="share-hashtags" role="region" aria-label="Hashtags suggérés">
-                        <span>Hashtags suggérés :</span>
-                        <div class="hashtags">
-                            <button class="hashtag" data-hashtag="TransparenceDémocratique" aria-label="Utiliser le hashtag Transparence Démocratique">
-                                #TransparenceDémocratique
-                            </button>
-                            <button class="hashtag" data-hashtag="ImmigrationFrance" aria-label="Utiliser le hashtag Immigration France">
-                                #ImmigrationFrance
-                            </button>
-                            <button class="hashtag" data-hashtag="BudgetPublic" aria-label="Utiliser le hashtag Budget Public">
-                                #BudgetPublic
-                            </button>
-                            <button class="hashtag" data-hashtag="OFPRA" aria-label="Utiliser le hashtag OFPRA">
-                                #OFPRA
-                            </button>
-                            <button class="hashtag" data-hashtag="Redevabilité" aria-label="Utiliser le hashtag Redevabilité">
-                                #Redevabilité
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <!-- Remaining sections would follow with similar data-driven updates -->
+            <!-- ... -->
         </div>
     </main>
 
-    <!-- Enhanced Footer -->
     <footer class="footer" role="contentinfo">
         <div class="container">
-            <div class="footer-content">
-                <section class="footer-section">
-                    <h3>🔍 Analyse Critique</h3>
-                    <nav aria-label="Navigation analyse">
-                        <ul>
-                            <li><a href="#overview">Vue d'ensemble</a></li>
-                            <li><a href="#critical">Dysfonctionnements</a></li>
-                            <li><a href="#budget">Analyse budgétaire</a></li>
-                            <li><a href="#performance">Indicateurs échec</a></li>
-                            <li><a href="#timeline">Chronologie</a></li>
-                        </ul>
-                    </nav>
-                </section>
-                
-                <section class="footer-section">
-                    <h3>📊 Données Officielles</h3>
-                    <nav aria-label="Navigation sources">
-                        <ul>
-                            <li>
-                                <a href="https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer">
-                                    Rapport AN 2024
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.budget.gouv.fr" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer">
-                                    Budget.gouv.fr
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.ofpra.gouv.fr" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer">
-                                    OFPRA
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.ofii.fr" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer">
-                                    OFII
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </section>
-                
-                <section class="footer-section">
-                    <h3>🌐 AI France Revolution</h3>
-                    <nav aria-label="Navigation AIFR">
-                        <ul>
-                            <li><a href="https://aifr.ai">Site principal</a></li>
-                            <li><a href="https://ia-france-revolution.github.io/Afd/">Dashboard AFD</a></li>
-                            <li><a href="mailto:contact@aifr.ai">Contact</a></li>
-                            <li><a href="https://github.com/IA-France-Revolution">GitHub</a></li>
-                        </ul>
-                    </nav>
-                </section>
-                
-                <section class="footer-section">
-                    <h3>⚖️ Transparence</h3>
-                    <nav aria-label="Navigation légale">
-                        <ul>
-                            <li><a href="#privacy">Politique confidentialité</a></li>
-                            <li><a href="#terms">Conditions d'utilisation</a></li>
-                            <li><a href="#accessibility">Accessibilité</a></li>
-                            <li>
-                                <a href="https://github.com/IA-France-Revolution/France-ADA-Immigration-Report-2024-">
-                                    Code source
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </section>
-            </div>
-            
-            <!-- Enhanced Social Links -->
-            <div class="footer-social" role="region" aria-label="Liens sociaux">
-                <a href="https://twitter.com/AIFR_AI" 
-                   class="social-link" 
-                   aria-label="Suivre AIFR sur Twitter" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="https://github.com/IA-France-Revolution" 
-                   class="social-link" 
-                   aria-label="GitHub AIFR" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <i class="fab fa-github" aria-hidden="true"></i>
-                </a>
-                <a href="https://www.linkedin.com/company/aifrancerevolution/" 
-                   class="social-link" 
-                   aria-label="LinkedIn AIFR" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <i class="fab fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="https://www.youtube.com/@AIFranceRevolution" 
-                   class="social-link" 
-                   aria-label="YouTube AIFR" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <i class="fab fa-youtube" aria-hidden="true"></i>
-                </a>
-                <a href="https://t.me/IAFranceRevolution_bot" 
-                   class="social-link" 
-                   aria-label="Telegram AIFR" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <i class="fab fa-telegram" aria-hidden="true"></i>
-                </a>
-            </div>
-            
-            <!-- Enhanced Disclaimer -->
             <div class="footer-disclaimer" role="region" aria-label="Avertissement">
-                <p>
-                    <strong>⚠️ Avertissement Citoyen :</strong> 
-                    Cette analyse factuelle est basée sur des données gouvernementales officielles. 
-                    Les citoyens français ont le droit de connaître l'utilisation de leurs impôts.
-                </p>
+                <p><strong>⚠️ Avertissement Citoyen :</strong> Cette analyse factuelle est basée sur des données gouvernementales officielles. Les citoyens ont le droit de connaître la performance réelle des politiques publiques financées par leurs impôts.</p>
             </div>
-            
-            <!-- Enhanced Footer Bottom -->
             <div class="footer-bottom">
                 <div class="footer-left">
-                    <p>&copy; 2024 AI France Revolution. Analyse critique des performances gouvernementales.</p>
-                    <p>
-                        Données extraites du 
-                        <a href="https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration" 
-                           target="_blank" 
-                           rel="noopener noreferrer">
-                            Rapport Officiel Immigration 2024
-                        </a>
-                    </p>
+                    <p>© 2024 AI France Revolution. Analyse critique des performances gouvernementales.</p>
+                    <p>Données extraites du <a href="https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration" target="_blank" rel="noopener noreferrer">Rapport Officiel Immigration 2024</a>.</p>
                 </div>
                 <div class="footer-right">
-                    <p>
-                        🎯 Dashboard URL : 
-                        <code>https://ia-france-revolution.github.io/France-ADA-Immigration-Report-2024-/</code>
-                    </p>
-                    <p>
-                        📊 Dernière mise à jour : 
-                        <time datetime="2024-12-19">19 décembre 2024</time>
-                    </p>
+                    <p>🎯 Dashboard URL : <code>https://ia-france-revolution.github.io/France-ADA-Immigration-Report-2024-/</code></p>
+                    <p>📊 Dernière mise à jour : <time datetime="2024-12-19">19 décembre 2024</time></p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Enhanced Floating Action Button -->
-    <button class="fab" 
-            id="scrollToTopBtn" 
-            aria-label="Retourner en haut de la page" 
-            title="Retour en haut"
-            data-aos="zoom-in">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
-        <div class="fab-ripple" aria-hidden="true"></div>
+    <button class="fab" id="scrollToTopBtn" aria-label="Retourner en haut de la page" title="Retour en haut" data-aos="zoom-in" hidden>
+        <i class="fas fa-arrow-up" aria-hidden="true"></i><div class="fab-ripple" aria-hidden="true"></div>
     </button>
-
-    <!-- Enhanced Accessibility Panel -->
-    <div class="accessibility-panel" id="accessibilityPanel" role="dialog" aria-labelledby="accessibility-title" hidden>
-        <div class="panel-header">
-            <h2 id="accessibility-title">Paramètres d'accessibilité</h2>
-            <button class="panel-close" aria-label="Fermer le panneau d'accessibilité">
-                <i class="fas fa-times" aria-hidden="true"></i>
-            </button>
-        </div>
-        <div class="panel-content">
-            <div class="accessibility-option">
-                <label for="fontSize">Taille du texte</label>
-                <input type="range" id="fontSize" min="14" max="24" value="16" aria-label="Ajuster la taille du texte">
-            </div>
-            <div class="accessibility-option">
-                <label for="contrast">Contraste élevé</label>
-                <input type="checkbox" id="contrast" aria-label="Activer le contraste élevé">
-            </div>
-            <div class="accessibility-option">
-                <label for="animations">Réduire les animations</label>
-                <input type="checkbox" id="animations" aria-label="Réduire les animations">
-            </div>
-        </div>
-    </div>
-
-    <!-- Enhanced Toast Container -->
-    <div id="toastContainer" 
-         class="toast-container" 
-         role="region" 
-         aria-live="polite" 
-         aria-label="Notifications"></div>
-
-    <!-- Enhanced Scripts Loading -->
-    <link rel="stylesheet" href="styles.css">
-    <script src="main.js" defer></script>
     
-    <!-- Enhanced No-JS Fallback -->
+    <div id="toastContainer" class="toast-container" role="region" aria-live="polite" aria-label="Notifications"></div>
+    
+    <script src="./main.js" defer></script>
+    
     <noscript>
         <div class="noscript-banner" role="alert">
-            <h2>JavaScript requis</h2>
-            <p>Ce dashboard nécessite JavaScript pour fonctionner correctement. Veuillez l'activer dans votre navigateur.</p>
-            <p>
-                <a href="https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration">
-                    Consulter directement le rapport officiel
-                </a>
-            </p>
+            <h2>JavaScript est requis pour ce dashboard interactif.</h2>
+            <p>Veuillez l'activer pour une expérience complète ou <a href="https://www.assemblee-nationale.fr/dyn/contenu/visualisation/906961/file/Immigration,%20asile%20et%20int%C3%A9gration">consultez directement le rapport officiel</a>.</p>
         </div>
     </noscript>
 
-    <!-- Enhanced Error Boundary -->
     <div id="errorBoundary" class="error-boundary" role="alert" hidden>
         <div class="error-content">
-            <h2>Une erreur s'est produite</h2>
+            <h2>Une erreur critique est survenue.</h2>
             <p>Le dashboard a rencontré un problème technique. Veuillez recharger la page.</p>
-            <button onclick="window.location.reload()" class="btn btn-primary">
-                Recharger la page
-            </button>
+            <button onclick="window.location.reload()" class="btn btn-primary">Recharger</button>
         </div>
     </div>
 
-    <!-- Remove no-js class when JavaScript loads -->
     <script>
         document.documentElement.classList.remove('no-js');
         document.documentElement.classList.add('js');
